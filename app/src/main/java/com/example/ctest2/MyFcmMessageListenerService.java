@@ -1,5 +1,6 @@
 package com.example.ctest2;
 
+
 import android.content.Context;
 import android.content.Intent;
 import android.app.NotificationManager;
@@ -19,7 +20,7 @@ import com.clevertap.android.sdk.pushnotification.LaunchPendingIntentFactory;
 import com.clevertap.android.sdk.pushnotification.NotificationInfo;
 //import com.clevertap.android.sdk.pushnotification.fcm.CTFcmMessageHandler;
 import com.clevertap.android.sdk.pushnotification.fcm.CTFcmMessageHandler;
-//import com.clevertap.android.xps.CTXiaomiMessageHandler;
+import com.clevertap.android.xps.CTXiaomiMessageHandler;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
@@ -85,18 +86,23 @@ public void onNewToken(String token1)
             }
             else
             {
+
+
                 Log.d("TAG", "from ct");
+
                 // if payload from clevertap
              //  CleverTapAPI.getDefaultInstance(this).pushNotificationViewedEvent(extras);
                 Log.d("CT data", "CT raw: " + message);
-               Log.d("CT data", "CT json: " + new Gson().toJson(message));   // to print payload
+               Log.d("CT data", "CT json: " + new
+                       Gson().toJson(message));   // to print payload
 
                 Log.d("EXTRAS", "EXTRAS: "+extras);
+        new CTFcmMessageHandler().createNotification(getApplicationContext(), message);
 
-          boolean status=new CTFcmMessageHandler().createNotification(getApplicationContext(), message);
-
-          CleverTapAPI.getDefaultInstance(this).pushNotificationViewedEvent(extras);
-               // CleverTapAPI.getDefaultInstance(this).pushNotificationClickedEvent(extras);
+//               CleverTapAPI.createNotification(getApplicationContext(),extras);
+//         CleverTapAPI.getDefaultInstance(this).pushNotificationViewedEvent(extras);
+//                CleverTapAPI.processPushNotification(getApplicationContext(),extras);
+//                CleverTapAPI.getDefaultInstance(this).pushNotificationClickedEvent(extras);
 //          NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 //               //  custom rendering
 //                int notificationId = new Random().nextInt(60000);
@@ -118,6 +124,7 @@ public void onNewToken(String token1)
 //
 //                notificationManager.notify(notificationId /* ID of notification */, notificationBuilder.build());
              }
+
         }
 
 }
