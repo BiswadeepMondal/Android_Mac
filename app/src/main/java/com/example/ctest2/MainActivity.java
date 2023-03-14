@@ -24,7 +24,7 @@ import com.clevertap.android.sdk.Constants;
 import com.clevertap.android.sdk.displayunits.DisplayUnitListener;
 import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnit;
 import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnitContent;
-import com.clevertap.android.sdk.inapp.CTLocalInApp;
+//import com.clevertap.android.sdk.inapp.CTLocalInApp;
 import com.clevertap.android.sdk.interfaces.NotificationHandler;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
@@ -61,23 +61,23 @@ public class MainActivity extends AppCompatActivity implements CTInboxListener, 
         CleverTapAPI cleverTapDefaultInstance = CleverTapAPI.getDefaultInstance(this);
 
          // Returns true if permission is granted, else returns false if permission is denied.
-
-
-        JSONObject jsonObject = CTLocalInApp.builder()
-                .setInAppType(CTLocalInApp.InAppType.ALERT)
-                .setTitleText("Get Notified")
-                .setMessageText("For cupon and offers")
-                .followDeviceOrientation(true)
-                .setPositiveBtnText("Allow")
-                .setNegativeBtnText("Cancel")
-                .build();
-        cleverTapDefaultInstance.promptPushPrimer(jsonObject);
-
-        Log.d("clevertap", "push permission: "+cleverTapDefaultInstance.isPushPermissionGranted());
-       // Log.d("clevertap", "push permission: "+cleverTapDefaultInstance.promptForPushPermission(true));
-if(!cleverTapDefaultInstance.isPushPermissionGranted()) {
-    cleverTapDefaultInstance.promptForPushPermission(true);
-}
+//
+//
+//        JSONObject jsonObject = CTLocalInApp.builder()
+//                .setInAppType(CTLocalInApp.InAppType.ALERT)
+//                .setTitleText("Get Notified")
+//                .setMessageText("For cupon and offers")
+//                .followDeviceOrientation(true)
+//                .setPositiveBtnText("Allow")
+//                .setNegativeBtnText("Cancel")
+//                .build();
+//        cleverTapDefaultInstance.promptPushPrimer(jsonObject);
+//
+//        Log.d("clevertap", "push permission: "+cleverTapDefaultInstance.isPushPermissionGranted());
+//       // Log.d("clevertap", "push permission: "+cleverTapDefaultInstance.promptForPushPermission(true));
+//if(!cleverTapDefaultInstance.isPushPermissionGranted()) {
+//    cleverTapDefaultInstance.promptForPushPermission(true);
+//}
 
         //CleverTapAPI.setDebugLevel(3);
       //  TemplateRenderer.setDebugLevel(3);
