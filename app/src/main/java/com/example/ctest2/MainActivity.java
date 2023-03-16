@@ -27,6 +27,8 @@ import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnitContent;
 //import com.clevertap.android.sdk.inapp.CTLocalInApp;
 import com.clevertap.android.sdk.interfaces.NotificationHandler;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.segment.analytics.Analytics;
+import com.segment.analytics.Properties;
 
 
 import org.json.JSONObject;
@@ -193,7 +195,9 @@ public class MainActivity extends AppCompatActivity implements CTInboxListener, 
             HashMap<String, Object> vdata = new HashMap<String, Object>();
             vdata.put("vname","CT000001");
             clevertapDefaultInstance.pushEvent("viet",vdata);
-
+            Analytics.with(getApplicationContext()).track("testEvent",
+                    new Properties().putValue("value", "testValue") .putValue("testDate", new Date(System.currentTimeMillis()))
+            );
         });
 
         evtbtn.setOnClickListener(v -> {
@@ -302,7 +306,7 @@ public class MainActivity extends AppCompatActivity implements CTInboxListener, 
     @Override
     protected void onDestroy() {
         clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(getApplicationContext());
-        clevertapDefaultInstance.pushEvent("App closed");
+     //   clevertapDefaultInstance.pushEvent("App closed");
         Toast.makeText(this, "onDestroy MainActivity", Toast.LENGTH_SHORT).show();
         Log.d("Activity", "onDestroy MainActivity");
 
@@ -335,7 +339,7 @@ public class MainActivity extends AppCompatActivity implements CTInboxListener, 
         Toast.makeText(this, "onResume MainActivity", Toast.LENGTH_SHORT).show();
         Log.d("Activity", "onResume MainActivity");
         super.onResume();
-        clevertapDefaultInstance.pushEvent("activity resumed");
+     //   clevertapDefaultInstance.pushEvent("activity resumed");
     }
 
     @Override

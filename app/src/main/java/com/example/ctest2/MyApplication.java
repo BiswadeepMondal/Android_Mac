@@ -23,16 +23,25 @@ import com.clevertap.android.sdk.CleverTapInstanceConfig;
 import com.clevertap.android.sdk.interfaces.NotificationHandler;
 import com.clevertap.android.sdk.pushnotification.CTPushNotificationListener;
 import com.clevertap.android.sdk.pushnotification.PushConstants;
+import com.segment.analytics.Analytics;
+import com.segment.analytics.android.integrations.clevertap.CleverTapIntegration;
 
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.logging.Handler;
 
 public class MyApplication extends Application implements CTPushNotificationListener, Application.ActivityLifecycleCallbacks {
     private static final String TAG = MyApplication.class.getName();
-
+    //private static final String TAG = String.format("%s.%s", "CLEVERTAP", MyApplication.class.getName());
+    private static final String WRITE_KEY = "x633QyoAbkNroP7DuXrMyt2zJxjLUFu0"; //This you will receive under source in segment.
+    private static final String CLEVERTAP_KEY = "CleverTap";
+    public static boolean sCleverTapSegmentEnabled = false;
+    private CleverTapAPI clevertap;
+    private static Handler handler = null;
     @Override
     public void onCreate() {
+
 
 
         Log.d(TAG, "onCreate() called");
@@ -55,12 +64,37 @@ public class MyApplication extends Application implements CTPushNotificationList
 
         registerActivityLifecycleCallbacks(this);
         ActivityLifecycleCallback.register(this);
-//TemplateRenderer.setDebugLevel(3);
+        TemplateRenderer.setDebugLevel(3);
         CleverTapAPI.setDebugLevel(3);
         super.onCreate();
 
+        CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.DEBUG);
 
+        Analytics analytics = new Analytics.Builder(getApplicationContext(), WRITE_KEY)
+                .logLevel(Analytics.LogLevel.VERBOSE)
+                .trackApplicationLifecycleEvents()
+                .use(CleverTapIntegration.FACTORY)
+                .build();
+
+        analytics.onIntegrationReady(CLEVERTAP_KEY, new Analytics.Callback<CleverTapAPI>()
+        {
+            @Override
+            public void onReady(CleverTapAPI instance) {
+                Log.i(TAG, "analytics.onIntegrationReady() called");
+                cleverTapIntegrationReady(instance);
+            }
+        });
+        Analytics.setSingletonInstance(analytics);
     }
+
+    private void cleverTapIntegrationReady(CleverTapAPI instance)
+    {
+        instance.enablePersonalization();
+        sCleverTapSegmentEnabled = true;
+        clevertap = instance;
+    }
+
+
     @Override
     public void onNotificationClickedPayloadReceived(HashMap<String, Object> extras) {
         Log.d("afterclick", "afterclick in application: "+extras);
@@ -99,7 +133,7 @@ public class MyApplication extends Application implements CTPushNotificationList
     public void onActivityResumed(@NonNull Activity activity) {
         Log.d(TAG, "onActivityResumed() called with: activity = [" + activity + "]");
         CleverTapAPI cleverTapAPI = CleverTapAPI.getDefaultInstance(getApplicationContext());
-        cleverTapAPI.pushEvent("Application resumed");
+        //cleverTapAPI.pushEvent("Application resumed");
     }
 
     @Override
