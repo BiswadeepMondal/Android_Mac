@@ -87,38 +87,37 @@ public void onNewToken(String token1)
             else
             {
 
-
+                //CleverTapAPI.processPushNotification(getApplicationContext(),extras);
                 Log.d("TAG", "from ct");
 
                 // if payload from clevertap
              //  CleverTapAPI.getDefaultInstance(this).pushNotificationViewedEvent(extras);
                 Log.d("CT data", "CT raw: " + message);
-               Log.d("CT data", "CT json: " + new
-                       Gson().toJson(message));   // to print payload
+               Log.d("CT data", "CT json: " + new Gson().toJson(message));   // to print payload
 
                 Log.d("EXTRAS", "EXTRAS: "+extras);
         new CTFcmMessageHandler().createNotification(getApplicationContext(), message);
 
-//               CleverTapAPI.createNotification(getApplicationContext(),extras);
+             //  CleverTapAPI.createNotification(getApplicationContext(),extras);
 //         CleverTapAPI.getDefaultInstance(this).pushNotificationViewedEvent(extras);
 //                CleverTapAPI.processPushNotification(getApplicationContext(),extras);
-//                CleverTapAPI.getDefaultInstance(this).pushNotificationClickedEvent(extras);
+//
 //          NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 //               //  custom rendering
 //                int notificationId = new Random().nextInt(60000);
 //                Intent intent = new Intent();
 //
-//                intent.setAction(Intent.ACTION_VIEW);
+//               // intent.setAction(Intent.ACTION_VIEW);
 //               // intent.setData(Uri.parse(extras.getString("wzrk_dl")));
-//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                intent.putExtras(extras);
-//                 PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_MUTABLE);
+//               // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//           //     intent.putExtras(extras);
+//                PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_MUTABLE);
 //                NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, "biswa2")
 //
 //                        .setSmallIcon(R.drawable.ic_baseline_share_24)  //a resource for your custom small icon
 //                        .setColor(Color.YELLOW)
-//                        .setContentTitle(extras.getString("nm"))
-//                        .setContentText(extras.getString("nt"))
+//                        .setContentTitle("CR"+extras.getString("nt"))
+//                        .setContentText("CR"+extras.getString("nm"))
 //                        .setContentIntent(pendingIntent)
 //                        .setAutoCancel(true);
 //

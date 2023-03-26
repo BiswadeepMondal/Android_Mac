@@ -35,7 +35,7 @@ dependencies {
     implementation 'com.segment.analytics.android:analytics:4.10.4'
     implementation 'com.clevertap.android:clevertap-segment-android:1.5.0'
     implementation "com.clevertap.android:clevertap-xiaomi-sdk:1.5.0"
-    implementation fileTree(include: ["*.jar", "*.aar"], dir: "libs/xpslibs")
+  //  implementation fileTree(include: ["*.jar", "*.aar"], dir: "libs/xpslibs")
     //implementation files("libs/MiPush_SDK_Client_5_0_6-G_3rd.aar")
     implementation 'com.clevertap.android:clevertap-geofence-sdk:1.1.0'
     implementation 'com.google.android.gms:play-services-location:19.0.1'
@@ -59,7 +59,7 @@ dependencies {
 
 
 //Optional ExoPlayer Libraries for Audio/Video Inbox Messages. Audio/Video messages will be dropped without these dependencies
-    implementation "com.clevertap.android:push-templates:1.0.8"
+    implementation "com.clevertap.android:push-templates:1.0.5.1"
 
 //    implementation 'com.google.android.exoplayer:exoplayer:2.15.1'
 //    implementation 'com.google.android.exoplayer:exoplayer-hls:2.15.1'
@@ -71,7 +71,7 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-    implementation 'com.clevertap.android:clevertap-android-sdk:4.7.5'
+    implementation 'com.clevertap.android:clevertap-android-sdk:4.6.7'
     implementation 'com.clevertap.android:clevertap-rendermax-sdk:1.0.3'
     implementation 'androidx.core:core:1.8.0'
     //Mandatory for CleverTap Android SDK v3.6.4 and above add the following -

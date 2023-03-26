@@ -97,9 +97,9 @@ public class MyApplication extends Application implements CTPushNotificationList
 
     @Override
     public void onNotificationClickedPayloadReceived(HashMap<String, Object> extras) {
-        Log.d("afterclick", "afterclick in application: "+extras);
-        Log.d("clicked DL","in application Id: "+extras.get("wzrk_dl"));
-
+        Log.d("clevertap", "afterclick in application: "+extras);
+      //  Log.d("clevertap","in application Id: "+extras.get("wzrk_dl"));
+       // CleverTapAPI.getDefaultInstance(this).pushNotificationClickedEvent(extras);
 //        Intent intent = new Intent(this,MainActivity.class);
 //        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //        intent.putExtra("key",extras);

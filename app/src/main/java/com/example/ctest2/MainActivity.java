@@ -33,6 +33,8 @@ import com.segment.analytics.Properties;
 
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -54,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements CTInboxListener, 
         super.onCreate(savedInstanceState);
         HashMap<String, Object> profileUpdate = new HashMap<String, Object>();
 
-
+        CleverTapAPI.getDefaultInstance(this).suspendInAppNotifications();
         Log.d("Activity", "onCreate MainActivity");
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         setContentView(R.layout.activity_main);
@@ -193,11 +195,17 @@ public class MainActivity extends AppCompatActivity implements CTInboxListener, 
 //        });
         pushpbt.setOnClickListener(v -> {
             HashMap<String, Object> vdata = new HashMap<String, Object>();
-            vdata.put("vname","CT000001");
+            vdata.put("count",3.9);
             clevertapDefaultInstance.pushEvent("viet",vdata);
             Analytics.with(getApplicationContext()).track("testEvent",
                     new Properties().putValue("value", "testValue") .putValue("testDate", new Date(System.currentTimeMillis()))
             );
+            DateFormat dateFormat = new SimpleDateFormat("hh:mm:ss");
+            Date date = new Date();
+            String time=dateFormat.format(date);
+            profileUpdate.put("DATE",time);
+            Log.d("mytime", "mytime: "+time);
+
         });
 
         evtbtn.setOnClickListener(v -> {
@@ -295,11 +303,15 @@ public class MainActivity extends AppCompatActivity implements CTInboxListener, 
     @Override
     protected void onNewIntent(final Intent intent) {
         super.onNewIntent(intent);
-        Log.d("dismissid", "onNewIntent() called with: intent = [" + intent + "]");
+        clevertapDefaultInstance.pushNotificationClickedEvent(intent.getExtras());
+        Log.d("clevertap", "raised clicked event");
+        //CleverTapAPI.getDefaultInstance(this).pushNotificationClickedEvent(extras);
+        Log.d("clevertap", "onNewIntent() called with: intent = [" + intent.getExtras() + "]");
         /**
          * On Android 12, clear notification on CTA click when Activity is already running in activity backstack
          */
-        NotificationUtils.dismissNotification(intent, this);
+
+       // NotificationUtils.dismissNotification(intent, this);
     }
 
 
@@ -358,6 +370,7 @@ public class MainActivity extends AppCompatActivity implements CTInboxListener, 
         for (CleverTapDisplayUnitContent i : unit.getContents()) {
             titlem.setText(i.getTitle());
             msg.setText(i.getMessage());
+            Log.d("clevertap", "customkv: "+unit.getCustomExtras());
             Toast.makeText(getApplicationContext(), "VALUE" + i, Toast.LENGTH_SHORT).show();
             //Notification Viewed Event
             CleverTapAPI.getDefaultInstance(this).pushDisplayUnitViewedEventForID(unit.getUnitID());
